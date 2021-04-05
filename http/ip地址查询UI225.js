@@ -1,3 +1,20 @@
+var ip地理位置 = false
+var ip地理位置正则 = /本机IP:&nbsp;\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}<\/span>([\s\S]*?)<\/td/
+var ipUrl = "http://www.baidu.com/s?ie=UTF-8&wd=ip%E5%BD%92%E5%B1%9E%E5%9C%B0%E6%9F%A5%E8%AF%A2"
+var r = http.get(ipUrl);
+log("code = " + r.statusCode);
+var htmlResult = r.body.string()
+ip地理位置 = ip地理位置正则.exec(htmlResult)
+if (ip地理位置) {
+    ip地理位置 = ip地理位置正则.exec(ip地理位置)
+    ip地理位置 = ip地理位置[1]
+    toastLog(ip地理位置)
+} else {
+    log('没有查询到Ip地理位置,脚本停止')
+    exit()
+}
+
+
 "ui";
 ui.layout(
     <frame background="#515155">
@@ -5,7 +22,7 @@ ui.layout(
         <linear>
             <text textSize="20sp" textStyle="bold">当前的IP地址：</text>
              <text id="iip" textSize="26sp"/>
-         </linear>   
+         </linear>
             <linear>
                 <input id="num" layout_weight="1" bg="#ffffff" h="45" paddingLeft="10sp" maxLines="1" hint="IP地址" alpha="0.5"/>
                 <button h="55" w="70" id="ok" text="查询" />
@@ -13,7 +30,7 @@ ui.layout(
             <linear>
                 <text textSize="26sp" text="您查询的的IP："/>
                 <text id="ipp" h="30" w="auto"  textSize="18sp"/>
-            </linear>            
+            </linear>
             <linear>
                 <text textSize="26sp" text="国家："/>
                 <text id="gjia" h="30" w="auto"  textSize="18sp"/>
@@ -45,7 +62,7 @@ threads.start(function() {
     ui.iip.setText(iipp);
     });
     asd(iipp);
-  });  
+  });
 ui.ok.click(function() {
     threads.start(function() {
         let sd = ui.num.text();
